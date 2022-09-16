@@ -1,3 +1,5 @@
+.idea
+.vs
 composer.lock
 data.csv
 vendor
