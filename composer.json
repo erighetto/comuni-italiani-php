@@ -1,0 +1,15 @@
+{
+    "name": "wcs/municipality",
+    "type": "library",
+    "require": {
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "minicli/minicli": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wcs\\Municipality\\": "src/"
+        }
+    }
+}

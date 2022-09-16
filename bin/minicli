@@ -1,0 +1,74 @@
+#!/usr/bin/php
+<?php
+
+if (php_sapi_name() !== 'cli') {
+    exit;
+}
+
+$root_app = dirname(__DIR__);
+
+if (!is_file($root_app . '/vendor/autoload.php')) {
+    $root_app = dirname(__DIR__, 4);
+}
+
+require $root_app . '/vendor/autoload.php';
+
+use Minicli\App;
+use Minicli\Command\CommandCall;
+
+$app = new App();
+$app->setSignature('./bin/minicli update');
+$input = new CommandCall($argv);
+
+$app->registerCommand('help', function () use ($app) {
+    $app->getPrinter()->info("./bin/minicli update");
+});
+
+$app->registerCommand('update', function () use ($app, $input) {
+
+    $fileRemote = 'https://www.istat.it/storage/codici-unita-amministrative/Elenco-comuni-italiani.csv';
+    $data = file_get_contents($fileRemote);
+    $fileCsv = 'data.csv';
+    file_put_contents($fileCsv, utf8_encode($data));
+
+    $fileJson = 'data.json';
+    $json = csvToJson($fileCsv);
+    file_put_contents($fileJson, $json);
+
+    $app->getPrinter()->newline();
+    $app->getPrinter()->info($advice ?? "No results found.");
+    $app->getPrinter()->newline();
+
+
+    return 0;
+});
+
+$app->runCommand($input->getRawArgs());
+
+
+// php function to convert csv to json format
+function csvToJson($fname)
+{
+    // open csv file
+    if (!($fp = fopen($fname, 'r'))) {
+        die("Can't open file...");
+    }
+
+    //read csv headers
+    $key = fgetcsv($fp, "1024", ";");
+
+    // parse csv rows into array
+    $json = array();
+    while ($row = fgetcsv($fp, "1024", ";")) {
+        $json[] = array_combine($key, $row);
+    }
+
+    // release file handle
+    fclose($fp);
+
+    // encode array to json
+    return json_encode($json);
+}
+
+
+
