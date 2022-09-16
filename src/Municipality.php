@@ -4,7 +4,6 @@ namespace Wcs\Municipality;
 
 class Municipality
 {
-
     /**
      * @var string|null
      */
@@ -26,11 +25,6 @@ class Municipality
     protected $provinceCode;
 
     /**
-     * @var string|null
-     */
-    private $slug;
-
-    /**
      * @param array $definition
      */
     public function __construct(array $definition)
@@ -39,7 +33,6 @@ class Municipality
         $this->otherLanguageName = $definition['other_language_name'];
         $this->province = $definition['province'];
         $this->provinceCode = $definition['province_code'];
-        $this->slug = $definition['slug'];
     }
 
     /**
@@ -73,13 +66,4 @@ class Municipality
     {
         return $this->provinceCode;
     }
-
-    /**
-     * @return string|null
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
 }

@@ -36,7 +36,7 @@ $app->registerCommand('update', function () use ($app, $input) {
     file_put_contents($fileJson, $json);
 
     $app->getPrinter()->newline();
-    $app->getPrinter()->info($advice ?? "No results found.");
+    $app->getPrinter()->info("Data updated.");
     $app->getPrinter()->newline();
 
 
