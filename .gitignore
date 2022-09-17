@@ -1,5 +1,4 @@
 .idea
-.php-cs-fixer.cache
 .vs
 composer.lock
 data.csv

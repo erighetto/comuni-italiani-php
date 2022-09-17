@@ -38,7 +38,7 @@ class Municipality
     /**
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -46,7 +46,7 @@ class Municipality
     /**
      * @return string|null
      */
-    public function getOtherLanguageName()
+    public function getOtherLanguageName(): ?string
     {
         return $this->otherLanguageName;
     }
@@ -54,7 +54,7 @@ class Municipality
     /**
      * @return string|null
      */
-    public function getProvince()
+    public function getProvince(): ?string
     {
         return $this->province;
     }
@@ -62,7 +62,7 @@ class Municipality
     /**
      * @return string|null
      */
-    public function getProvinceCode()
+    public function getProvinceCode(): ?string
     {
         return $this->provinceCode;
     }

@@ -26,19 +26,22 @@ $app->registerCommand('help', function () use ($app) {
 
 $app->registerCommand('update', function () use ($app, $input) {
 
+    $app->getPrinter()->newline();
+    $app->getPrinter()->info("Downloading csv file.");
+
     $fileRemote = 'https://www.istat.it/storage/codici-unita-amministrative/Elenco-comuni-italiani.csv';
     $data = file_get_contents($fileRemote);
     $fileCsv = 'data.csv';
     file_put_contents($fileCsv, utf8_encode($data));
 
+    $app->getPrinter()->info("Converting csv to json.");
+
     $fileJson = 'data.json';
     $json = csvToJson($fileCsv);
     file_put_contents($fileJson, $json);
 
-    $app->getPrinter()->newline();
     $app->getPrinter()->info("Data updated.");
     $app->getPrinter()->newline();
-
 
     return 0;
 });
