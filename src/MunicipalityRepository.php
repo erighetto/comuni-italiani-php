@@ -41,9 +41,11 @@ class MunicipalityRepository
      */
     public function getAll(): array
     {
-        $definitions = $this->loadDefinitions();
+        if (isset($this->definitions)) {
+            return $this->definitions;
+        }
 
-        foreach ($definitions as $definition) {
+        foreach ($this->loadDefinitions() as $definition) {
             $keys = array_map(function ($v) {
                 return str_replace("\n", "", $v);
             }, array_keys($definition));
@@ -60,7 +62,6 @@ class MunicipalityRepository
      */
     public function getSingle(string $name): ?Municipality
     {
-
         foreach ($this->getAll() as $definition) {
             if (strtolower($name) == strtolower($definition->getName())) {
                 return $definition;

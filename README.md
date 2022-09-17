@@ -25,6 +25,6 @@ php bin/minicli update
 
 ### Check coding standard
 ```console
-./vendor/bin/phpcbs --standard=PSR12 src
+./vendor/bin/phpcs --standard=PSR12 src
 ./vendor/bin/phpcbf --standard=PSR12 src
 ```
