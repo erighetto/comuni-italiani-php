@@ -62,7 +62,7 @@ class MunicipalityRepository
     {
 
         foreach ($this->getAll() as $definition) {
-            if ($name == $definition->getName()) {
+            if (strtolower($name) == strtolower($definition->getName())) {
                 return $definition;
             }
         }
