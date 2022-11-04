@@ -7,10 +7,6 @@ if (php_sapi_name() !== 'cli') {
 
 $root_app = dirname(__DIR__);
 
-if (!is_file($root_app . '/vendor/autoload.php')) {
-    $root_app = dirname(__DIR__, 4);
-}
-
 require $root_app . '/vendor/autoload.php';
 
 use Minicli\App;
@@ -20,10 +16,6 @@ $app = new App();
 $app->setSignature('./bin/minicli update');
 $input = new CommandCall($argv);
 
-$app->registerCommand('help', function () use ($app) {
-    $app->getPrinter()->info("./bin/minicli update");
-});
-
 $app->registerCommand('update', function () use ($app, $input) {
 
     $app->getPrinter()->newline();
@@ -31,12 +23,12 @@ $app->registerCommand('update', function () use ($app, $input) {
 
     $fileRemote = 'https://www.istat.it/storage/codici-unita-amministrative/Elenco-comuni-italiani.csv';
     $data = file_get_contents($fileRemote);
-    $fileCsv = 'data.csv';
+    $fileCsv = '/app/data.csv';
     file_put_contents($fileCsv, utf8_encode($data));
 
     $app->getPrinter()->info("Converting csv to json.");
 
-    $fileJson = 'data.json';
+    $fileJson = '/app/data.json';
     $json = csvToJson($fileCsv);
     file_put_contents($fileJson, $json);
 

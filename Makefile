@@ -1,3 +1,8 @@
+.PHONY: build
+build:
+	docker build -t erighetto/comuni-italiani-php:latest .
+
 .PHONY: update
 update:
-	docker container run --rm -v ${PWD}:/app/ php:8.1-cli php /app/bin/minicli update
+	docker run --rm -it -v "${PWD}:/app" erighetto/comuni-italiani-php php ./bin/minicli update
+	date '+%F %H:%M %Z' >| update_at.txt

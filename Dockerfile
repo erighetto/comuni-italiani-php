@@ -11,3 +11,9 @@ RUN apt-get update \
 RUN docker-php-ext-install zip \
     && docker-php-ext-install pcntl \
     && docker-php-ext-install bcmath
+
+COPY . /app
+
+WORKDIR /app
+
+RUN composer install
