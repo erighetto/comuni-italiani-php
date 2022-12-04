@@ -1,11 +1,8 @@
 name: comuni-italiani
 
 on:
-#   schedule:
-#    - cron: '0 1 1 * *'
-  push:
-    branches:
-      - main
+   schedule:
+    - cron: '0 1 1 * *'
 
 jobs:
   build:
@@ -21,7 +18,7 @@ jobs:
         run: docker build -t erighetto/comuni-italiani-php:latest .
 
       - name: Update data
-        run: docker run --rm -t -v "${PWD}:/app" erighetto/comuni-italiani-php php ./bin/minicli update
+        run: docker run --rm -t -v "${PWD}/data.json:/app/data.json" -v "${PWD}/update_at.txt:/app/update_at.txt" erighetto/comuni-italiani-php php ./bin/minicli update
 
       - name: Update update_at.txt
         run: |
