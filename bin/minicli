@@ -5,9 +5,9 @@ if (php_sapi_name() !== 'cli') {
     exit;
 }
 
-$root_app = dirname(__DIR__);
+define("APP_ROOT", "/app");
 
-require $root_app . '/vendor/autoload.php';
+require APP_ROOT . '/vendor/autoload.php';
 
 use Minicli\App;
 use Minicli\Command\CommandCall;
@@ -23,12 +23,12 @@ $app->registerCommand('update', function () use ($app, $input) {
 
     $fileRemote = 'https://www.istat.it/storage/codici-unita-amministrative/Elenco-comuni-italiani.csv';
     $data = file_get_contents($fileRemote);
-    $fileCsv = '/app/data.csv';
+    $fileCsv = APP_ROOT . '/data.csv';
     file_put_contents($fileCsv, utf8_encode($data));
 
     $app->getPrinter()->info("Converting csv to json.");
 
-    $fileJson = '/app/data.json';
+    $fileJson = APP_ROOT . '/data.json';
     $json = csvToJson($fileCsv);
     file_put_contents($fileJson, $json);
 
