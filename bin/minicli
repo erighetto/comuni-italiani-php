@@ -18,22 +18,22 @@ $input = new CommandCall($argv);
 
 $app->registerCommand('update', function () use ($app, $input) {
 
-    $app->getPrinter()->newline();
-    $app->getPrinter()->info("Downloading csv file.");
+    $app->newline();
+    $app->info("Downloading csv file.");
 
     $fileRemote = 'https://www.istat.it/storage/codici-unita-amministrative/Elenco-comuni-italiani.csv';
     $data = file_get_contents($fileRemote);
     $fileCsv = APP_ROOT . '/data.csv';
-    file_put_contents($fileCsv, utf8_encode($data));
+    file_put_contents($fileCsv, mb_convert_encoding($data, 'UTF-8', 'ISO-8859-1'));
 
-    $app->getPrinter()->info("Converting csv to json.");
+    $app->info("Converting csv to json.");
 
     $fileJson = APP_ROOT . '/data.json';
     $json = csvToJson($fileCsv);
     file_put_contents($fileJson, $json);
 
-    $app->getPrinter()->info("Data updated.");
-    $app->getPrinter()->newline();
+    $app->info("Data updated.");
+    $app->newline();
 
     return 0;
 });

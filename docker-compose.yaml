@@ -3,7 +3,6 @@ services:
   web:
     build: .
     volumes:
-      - "./data.json:/app/data.json"
-      - "./update_at.txt:/app/update_at.txt"
+      - "./.:/app"
     command: "tail -f /dev/null"
     working_dir: "/app"
